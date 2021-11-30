@@ -45,12 +45,12 @@ ActiveRecord::Schema.define(version: 2021_11_26_215207) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "lastname"
-    t.date "birth_date"
-    t.string "email_address"
-    t.string "password"
-    t.boolean "status"
+    t.string "name", null: false
+    t.string "lastname", null: false
+    t.date "birth_date", null: false
+    t.string "email_address", null: false
+    t.string "password", null: false
+    t.boolean "active", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
