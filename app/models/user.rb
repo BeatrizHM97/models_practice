@@ -4,10 +4,15 @@ class User < ApplicationRecord
     has_many :order_items, through: :order
     validates :name, length: { minimum: 3 }
     validates :lastname, length: { minimum: 3 }
-    validates :email_address, uniqueness:true, format: {with: URI::MailTo::EMAIL_REGEXP}
     validates :password, length: { in: 6..20}
+    validates :email_address, uniqueness:true, format: {with: URI::MailTo::EMAIL_REGEXP}
     validate :validate_dates, :validate_different_name_and_lastname, :validate_password_characters
 
+    # Scope to get active users
+    scope :active_users, -> { where(active: true) }
+
+
+    # Custum validations
     def validate_dates
         _today = Time.now.strftime("%d-%m-%Y").to_date
         if birth_date >= _today
@@ -30,8 +35,22 @@ class User < ApplicationRecord
         }
 
         requirements.each do |message, regex|
-            errors.add( :password, message ) unless password.match( regex )
+            errors.add( :password, message ) 
         end
+    end
+
+    private
+    # Intance methods
+    def deactivate_users(_id)
+        user = User.find_by(id: _id)
+        user.update_attribute(:active, false)
+        return user
+    end
+
+    def get_age(_id)
+        user = User.find_by(id: _id)
+        _age = (Time.now.to_s(:number).to_i - user.birth_date.to_time.to_s(:number).to_i)/10e9.to_i
+        return _age
     end
         
 end
