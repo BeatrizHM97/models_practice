@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_165926) do
+ActiveRecord::Schema.define(version: 2021_12_03_165639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_165926) do
   create_table "order_items", force: :cascade do |t|
     t.bigint "order_id"
     t.bigint "product_id"
-    t.decimal "total", precision: 10, scale: 2
+    t.decimal "total", precision: 10, scale: 2, default: "0.0"
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(version: 2021_12_02_165926) do
     t.integer "order_number"
     t.bigint "user_id"
     t.date "date"
-    t.decimal "total", precision: 10, scale: 2
-    t.boolean "active"
+    t.decimal "total", precision: 10, scale: 2, default: "0.0"
+    t.boolean "active", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -40,9 +40,9 @@ ActiveRecord::Schema.define(version: 2021_12_02_165926) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "code"
-    t.decimal "price", precision: 10, scale: 2
+    t.decimal "price", precision: 10, scale: 2, default: "0.0"
     t.integer "quantity"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

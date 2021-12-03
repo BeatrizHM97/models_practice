@@ -35,7 +35,7 @@ class User < ApplicationRecord
         }
 
         requirements.each do |message, regex|
-            errors.add( :password, message ) 
+            errors.add( :password, message ) unless password.match( regex )
         end
     end
 
