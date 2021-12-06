@@ -11,21 +11,18 @@ class Order < ApplicationRecord
     # Custum validations
     def validate_dates
         _today = Time.now.strftime("%d-%m-%Y").to_date
-        if date != _today
-            errors.add(:birth_date, "The date must be today.")
-        end
+        errors.add(:date, 'The date must be today.') if date != _today
     end
 
     private
     # Intance methods
     def deactivate_orders(_id)
-        order = Order.find_by(user_id: _id)
+        order = Order.find_by(user: _id)
         order.update_attribute(:active, false)
-        return order
     end
 
     def generate_order_number
-        code = SecureRandom.hex(3)
+        code = SecureRandom.hex(3)     
         if code != 0
             self.order_number = code
         end
@@ -43,12 +40,10 @@ class Order < ApplicationRecord
         end
     end
 
-    def calculate_total(id) # TODO
-        result = 0
-        order_items_order = OrderItem.find_by(order: id)
-        for order_item in order_items_order do
-            result += order_item.total
-        end
-        return result
+    def self.calculate_total(id)
+        order = Order.find(id)
+        total = order.order_items.reduce(0) { |suma, order_item| suma += order_item.total }
+        order.update_attribute(:total, total)
     end
+    
 end
