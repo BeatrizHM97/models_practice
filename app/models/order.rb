@@ -40,7 +40,7 @@ class Order < ApplicationRecord
         end
     end
 
-    def self.calculate_total(id)
+    def calculate_total(id)
         order = Order.find(id)
         total = order.order_items.reduce(0) { |suma, order_item| suma += order_item.total }
         order.update_attribute(:total, total)
