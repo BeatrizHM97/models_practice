@@ -1,6 +1,6 @@
 class OrderItem < ApplicationRecord
     belongs_to :order
-    has_many :products
+    belongs_to :product
     validates :total, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }
     validates :quantity, numericality: true
     before_create :set_total

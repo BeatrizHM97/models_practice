@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+    has_many :order_items
+    has_many :orders, through: :order_items
     validates :name, length: { minimum: 3 }
     validates :code, uniqueness: true, length: { minimum: 4 }
     validates :price, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }

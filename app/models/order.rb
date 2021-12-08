@@ -14,11 +14,11 @@ class Order < ApplicationRecord
         errors.add(:date, 'The date must be today.') if date != _today
     end
 
-    private
-    # Intance methods
-    def deactivate_orders(_id)
-        order = Order.find_by(user: _id)
-        order.update_attribute(:active, false)
+    def validate_user_order
+        order = Order.find_by(user: self.user_id)
+        if order != nil && order.active == true
+            errors.add(:user_id, "The user can not have more than one order.")
+        end
     end
 
     def generate_order_number
@@ -33,17 +33,29 @@ class Order < ApplicationRecord
         self.date = today
     end
 
-    def validate_user_order
-        order = Order.find_by(user: self.user_id)
-        if order != nil && order.active == true
-            errors.add(:user_id, "The user can not have more than one order.")
-        end
+    private
+    # Intance methods
+    def deactivate_orders(_id)
+        order = Order.find_by(user: _id)
+        order.update_attribute(:active, false)
     end
 
     def calculate_total(id)
         order = Order.find(id)
         total = order.order_items.reduce(0) { |suma, order_item| suma += order_item.total }
         order.update_attribute(:total, total)
+    end
+
+    def validate_products(id, idProduct)
+        order = Order.find(id)
+        product = order.products.find(idProduct)
+        order_items_order = order.order_items.where(order_id: order.id, product_id: product)
+        
+        if order_items_order.count > 1
+           return false
+        else
+            return true
+        end
     end
     
 end
