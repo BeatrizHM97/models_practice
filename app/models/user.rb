@@ -40,7 +40,6 @@ class User < ApplicationRecord
         end
     end
 
-    private
     # Intance methods
     def deactivate_users(_id)
         user = User.find_by(id: _id)
