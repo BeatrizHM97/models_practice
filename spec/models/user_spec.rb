@@ -6,6 +6,16 @@ RSpec.describe User, type: :model do
       user = User.new(name:'María', lastname:'Lopez', birth_date:'14/05/2001', email_address:'maria@gmail.com', password:'Hg27-Dt15')
       expect(user).to be_valid
     end
+
+    it "is valid deactivate users" do
+      user = User.new.instance_eval{ deactivate_users(6) }
+      expect(user).to match(true)
+    end
+
+    it "is valid get a user age" do
+      user = User.new.instance_eval{ get_age(1) }
+      expect(user).to be > 0
+    end
   end
 
   context "invalid attributes" do

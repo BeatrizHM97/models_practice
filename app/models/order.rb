@@ -35,8 +35,8 @@ class Order < ApplicationRecord
     end
 
     # Intance methods
-    def deactivate_orders(_id)
-        order = Order.find_by(user: _id)
+    def deactivate_orders(id)
+        order = Order.find_by(user: id)
         order.update_attribute(:active, false)
     end
 

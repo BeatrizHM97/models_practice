@@ -41,14 +41,13 @@ class User < ApplicationRecord
     end
 
     # Intance methods
-    def deactivate_users(_id)
-        user = User.find_by(id: _id)
+    def deactivate_users(id)
+        user = User.find(id)
         user.update_attribute(:active, false)
-        return user
     end
 
-    def get_age(_id)
-        user = User.find_by(id: _id)
+    def get_age(id)
+        user = User.find(id)
         _age = (Time.now.to_s(:number).to_i - user.birth_date.to_time.to_s(:number).to_i)/10e9.to_i
         return _age
     end

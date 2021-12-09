@@ -6,6 +6,11 @@ RSpec.describe Product, type: :model do
       product = Product.new(name:'Parlante', code:'PL-1', price:50.09, quantity:12)
       expect(product).to be_valid
     end
+
+    it "is valid deactivate products" do
+      product = Product.new.instance_eval{ deactivate_products(7) }
+      expect(product).to match(true)
+    end
   end
 
   context "invalid attributes" do

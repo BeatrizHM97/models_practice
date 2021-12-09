@@ -27,9 +27,8 @@ class Product < ApplicationRecord
     end
 
     # Intance methods
-    def deactivate_products(_id)
-        product = Product.find_by(id: _id)
+    def deactivate_products(id)
+        product = Product.find(id)
         product.update_attribute(:active, false)
-        return product
     end
 end
