@@ -8,6 +8,7 @@ class Order < ApplicationRecord
     validates :total, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }
     validate :validate_user_order
 
+    protected
     # Custum validations
     def validate_dates
         _today = Time.now.strftime("%d-%m-%Y").to_date
@@ -33,7 +34,6 @@ class Order < ApplicationRecord
         self.date = today
     end
 
-    private
     # Intance methods
     def deactivate_orders(_id)
         order = Order.find_by(user: _id)

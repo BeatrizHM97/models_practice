@@ -19,3 +19,14 @@ product = Product.create([
     {name:'Humidificador Mini', code:'HM-1', price:9.80, quantity:10},
     {name:'Audifonos', code:'AU-2', price:9.61, quantity:30}
 ])
+
+order = Order.create([
+    {user_id:1},
+    {user_id:2}
+])
+
+=begin 
+order_item = OrderItem.create([
+    {orde}
+]) 
+=end
