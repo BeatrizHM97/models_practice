@@ -17,7 +17,7 @@ product = Product.create([
     {name:'Blusa', code:'BL-1', price:7.83, quantity:20},
     {name:'Mouse', code:'MS-1', price:23.48, quantity:17},
     {name:'Humidificador Mini', code:'HM-1', price:9.80, quantity:10},
-    {name:'Audifonos', code:'AU-2', price:9.61, quantity:30}
+    {name:'Audifonos', code:'AU-2', price:9.61, quantity:30, active:false}
 ])
 
 order = Order.create([
@@ -25,8 +25,10 @@ order = Order.create([
     {user_id:2}
 ])
 
-=begin 
+
 order_item = OrderItem.create([
-    {orde}
+    {order_id:1, product_id:1, quantity:1},
+    {order_id:1, product_id:2, quantity:3},
+    {order_id:1, product_id:4, quantity:2},
+    {order_id:2, product_id:1, quantity:2}
 ]) 
-=end

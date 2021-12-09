@@ -7,6 +7,7 @@ class Product < ApplicationRecord
     validates :quantity, format: { with: /\A[0-9]+\z/, message: "only allows numbers" }, numericality: {greater_than: 0}
     validate :validate_code_characters, :validate_price
 
+    protected
     def validate_price
         if price <= 0.0
             errors.add(:price, "The price must be greater than 0.0.")
@@ -25,11 +26,10 @@ class Product < ApplicationRecord
         end
     end
 
-    private
-        # Intance methods
-        def deactivate_products(_id)
-            product = Product.find_by(id: _id)
-            product.update_attribute(:active, false)
-            return product
-        end
+    # Intance methods
+    def deactivate_products(_id)
+        product = Product.find_by(id: _id)
+        product.update_attribute(:active, false)
+        return product
+    end
 end
