@@ -11,3 +11,11 @@ user = User.create([
     {name:'Briana', lastname:'Hernández', birth_date:'22/01/2000', email_address:'briana@gmail.com', password:'Bn22.Hz01'},
     {name:'Rodrigo', lastname:'Mora', birth_date:'01/09/1997', email_address:'rodrigo@gmail.com', password:'Rd97-Ma09'}
 ])
+
+product = Product.create([
+    {name:'Audifonos', code:'AU-1', price:14.09, quantity:17},
+    {name:'Blusa', code:'BL-1', price:7.83, quantity:20},
+    {name:'Mouse', code:'MS-1', price:23.48, quantity:17},
+    {name:'Humidificador Mini', code:'HM-1', price:9.80, quantity:10},
+    {name:'Audifonos', code:'AU-2', price:9.61, quantity:30}
+])
